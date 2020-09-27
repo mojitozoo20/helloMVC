@@ -18,33 +18,35 @@ import service.CustomerService;
 @WebServlet("/doRegister")
 public class DoRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DoRegister() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public DoRegister() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String gender = request.getParameter("gender");
 		String email = request.getParameter("email");
-		
+
 		CustomerService service = (CustomerService) CustomerService.getInstance();
 		Customer customer = service.register(id, password, name, gender, email);
-		
+
 		String page;
-		
+
 		page = "/view/registerSuccess.jsp";
 		request.setAttribute("customer", customer);
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}

@@ -18,37 +18,38 @@ import service.CustomerService;
 @WebServlet("/doLogin")
 public class DoLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DoLogin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public DoLogin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		
+
 		CustomerService service = (CustomerService) CustomerService.getInstance();
 		Customer customer = service.login(id, password);
-		
+
 		String page;
-		
-		if(customer == null) {
-			page ="/view/loginFail.jsp";
+
+		if (customer == null) {
+			page = "/view/loginFail.jsp";
 			request.setAttribute("id", id);
-		}
-		else {
-			page ="/view/loginSuccess.jsp";
+		} else {
+			page = "/view/loginSuccess.jsp";
 			request.setAttribute("customer", customer);
 		}
-			
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
